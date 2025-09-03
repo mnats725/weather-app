@@ -1,19 +1,20 @@
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 
 import { SearchBar } from '@components/ui/search-bar';
 import { LocationList } from '@components/ui/location-list';
 import { WeatherCard } from '@components/ui/weather-card';
-import { HourlyTempChart } from '@components/ui/hourly-temp-chart';
-import { DailyRangeChart } from '@components/ui/daily-range-chart';
 import { FavoritesBar } from '@components/ui/favorites-bar';
 import { HistoryList } from '@components/ui/history-list';
 import { ShareButton } from '@components/ui/share-button';
 import { Tabs } from '@components/ui/tabs';
+import { MapView } from '@components/ui/map-view';
 import { useWeather } from '@hooks/use-weather.hook';
+
+import { HourlyTempChartLazy, DailyRangeChartLazy } from './home.lazy';
 
 import styles from './home.module.css';
 
-type TabKey = 'today' | 'hourly' | 'daily';
+type TabKey = 'today' | 'hourly' | 'daily' | 'map';
 
 export const HomePage = () => {
   const {
@@ -26,12 +27,14 @@ export const HomePage = () => {
     favorites,
     search,
     pickLocation,
+    pickCoordinates,
     addFavorite,
     removeFavorite,
     requestMyLocation,
   } = useWeather();
 
   const [tab, setTab] = useState<TabKey>('today');
+  const [showRadar, setShowRadar] = useState(false);
   const title = 'Погода по вашему запросу';
 
   const handleSearch = (q: string) => {
@@ -53,6 +56,7 @@ export const HomePage = () => {
 
   const renderCandidates = () => {
     if (locationCandidates.length === 0) return null;
+
     return (
       <section className={styles.card}>
         <LocationList items={locationCandidates} onPick={pickLocation} />
@@ -70,28 +74,56 @@ export const HomePage = () => {
     return (
       <section className={styles.card}>
         <Tabs value={tab} onChange={setTab}>
-          <div style={{ display: tab === 'today' ? 'block' : 'none' }}>
-            <WeatherCard location={selectedLocation} data={weather} />
-            <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
-              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
-                <button type="button" onClick={() => addFavorite(selectedLocation)}>
-                  ★ В избранное
-                </button>
-                <ShareButton city={city} t={t} wind={wind} tz={weather.timezone} />
-                <button type="button" onClick={requestMyLocation} disabled={loading}>
-                  📍 Моя геолокация
-                </button>
+          {tab === 'today' && (
+            <section>
+              <WeatherCard location={selectedLocation} data={weather} />
+              <div style={{ display: 'grid', gap: 12, marginTop: 12 }}>
+                <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+                  <button type="button" onClick={() => addFavorite(selectedLocation)}>
+                    ★ В избранное
+                  </button>
+                  <ShareButton city={city} t={t} wind={wind} tz={weather.timezone} />
+                  <button type="button" onClick={requestMyLocation} disabled={loading}>
+                    📍 Моя геолокация
+                  </button>
+                </div>
               </div>
-            </div>
-          </div>
+            </section>
+          )}
 
-          <div style={{ display: tab === 'hourly' ? 'block' : 'none' }}>
-            <HourlyTempChart data={weather.hourly} />
-          </div>
+          {tab === 'hourly' && (
+            <section>
+              <Suspense fallback={<p>Загружаю график…</p>}>
+                <HourlyTempChartLazy data={weather.hourly} />
+              </Suspense>
+            </section>
+          )}
 
-          <div style={{ display: tab === 'daily' ? 'block' : 'none' }}>
-            <DailyRangeChart data={weather.daily} />
-          </div>
+          {tab === 'daily' && (
+            <section>
+              <Suspense fallback={<p>Загружаю график…</p>}>
+                <DailyRangeChartLazy data={weather.daily} />
+              </Suspense>
+            </section>
+          )}
+
+          {tab === 'map' && (
+            <section style={{ display: 'grid', gap: 12 }}>
+              <div style={{ display: 'flex', gap: 8, alignItems: 'center', flexWrap: 'wrap' }}>
+                <label>
+                  <input type="checkbox" checked={showRadar} onChange={(e) => setShowRadar(e.target.checked)} />{' '}
+                  Показать радар осадков (RainViewer)
+                </label>
+              </div>
+              <MapView
+                center={{ lat: selectedLocation.latitude, lon: selectedLocation.longitude }}
+                marker={{ lat: selectedLocation.latitude, lon: selectedLocation.longitude }}
+                showRadar={showRadar}
+                onPickCoords={(lat, lon) => pickCoordinates(lat, lon)}
+                zoom={9}
+              />
+            </section>
+          )}
         </Tabs>
       </section>
     );

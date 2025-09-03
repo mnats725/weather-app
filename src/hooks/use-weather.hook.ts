@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
-import { geocodeByName } from '@services/geocoding';
+import { geocodeByName, reverseGeocode } from '@services/geocoding';
 import { fetchWeather } from '@services/weather';
 import { parseQuery } from '@utils/parse-query.util';
 import { readJson, writeJson } from '@utils/storage.util';
@@ -138,6 +138,27 @@ export const useWeather = () => {
     [pushToHistory]
   );
 
+  const pickCoordinates = useCallback(
+    async (latitude: number, longitude: number) => {
+      setState((prev) => ({ ...prev, loading: true, error: undefined }));
+      try {
+        const loc = await reverseGeocode(latitude, longitude);
+        const data = await fetchWeather(latitude, longitude);
+        setState((prev) => ({
+          ...prev,
+          loading: false,
+          selectedLocation: loc,
+          locationCandidates: [],
+          weather: data,
+        }));
+        pushToHistory(loc);
+      } catch (err) {
+        setState((prev) => ({ ...prev, loading: false, error: (err as Error).message }));
+      }
+    },
+    [pushToHistory]
+  );
+
   const addFavorite = useCallback(
     (loc: GeoLocation) => {
       const key = uniqKey(loc);
@@ -202,11 +223,12 @@ export const useWeather = () => {
       ...state,
       search,
       pickLocation,
+      pickCoordinates,
       addFavorite,
       removeFavorite,
       requestMyLocation,
     }),
-    [state, search, pickLocation, addFavorite, removeFavorite, requestMyLocation]
+    [state, search, pickLocation, pickCoordinates, addFavorite, removeFavorite, requestMyLocation]
   );
 
   return value;
