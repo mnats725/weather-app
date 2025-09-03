@@ -24,7 +24,7 @@ export const HourlyTempChart = ({ data }: HourlyTempChartProps) => {
   return (
     <section className={styles.card} aria-label="Почасовая температура">
       <h3>Почасовая температура (24ч)</h3>
-      <div style={{ width: '100%', height: 280 }}>
+      <div className={styles.chart}>
         <ResponsiveContainer>
           <LineChart data={chartData}>
             <CartesianGrid strokeDasharray="3 3" />

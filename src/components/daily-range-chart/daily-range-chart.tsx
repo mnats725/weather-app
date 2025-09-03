@@ -23,7 +23,7 @@ export const DailyRangeChart = ({ data }: DailyRangeChartProps) => {
   return (
     <section className={styles.card} aria-label="Прогноз на 7 дней">
       <h3>Диапазон температур (7 дней)</h3>
-      <div style={{ width: '100%', height: 280 }}>
+      <div className={styles.chart}>
         <ResponsiveContainer>
           <ComposedChart data={chartData}>
             <XAxis dataKey="day" />

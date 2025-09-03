@@ -8,6 +8,11 @@
   width: min(1120px, 92vw);
   margin-inline: auto;
   padding: 24px 0 40px;
+
+  @media (max-width: 610px) {
+    width: 100%;
+    padding: 12px 12px 24px;
+  }
 }
 
 .card {
@@ -15,4 +20,10 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px;
+  min-width: 0;
+
+  @media (max-width: 610px) {
+    border-radius: 12px;
+    padding: 12px;
+  }
 }

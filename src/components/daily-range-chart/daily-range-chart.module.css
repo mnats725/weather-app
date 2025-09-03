@@ -3,4 +3,24 @@
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   padding: 16px;
+  min-width: 0; /* NEW */
+}
+
+.card h3 {
+  margin-bottom: 8px;
+}
+
+.chart {
+  width: 100%;
+  height: 280px;
+
+  @media (max-width: 1024px) {
+    height: 260px;
+  }
+  @media (max-width: 768px) {
+    height: 240px;
+  }
+  @media (max-width: 610px) {
+    height: 220px;
+  }
 }

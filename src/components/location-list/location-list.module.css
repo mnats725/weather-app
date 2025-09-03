@@ -2,20 +2,37 @@
   display: grid;
   gap: 8px;
 }
+
 .item {
   display: grid;
   grid-template-columns: 1fr auto;
   gap: 8px;
   align-items: center;
   padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #ffffff0a;
+  border: 1px solid #ffffff14;
   border-radius: 12px;
+  min-width: 0;
+
+  @media (max-width: 610px) {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
 }
+
 .title {
   font-weight: 600;
 }
 .meta {
   color: var(--muted);
   font-size: 12px;
+}
+
+.item button {
+  justify-self: end;
+
+  @media (max-width: 610px) {
+    justify-self: start;
+    width: 100%;
+  }
 }

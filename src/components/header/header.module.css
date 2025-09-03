@@ -2,12 +2,12 @@
   position: sticky;
   top: 0;
   z-index: 10;
-  background: rgba(7, 11, 20, 0.7);
+  background: color-mix(in oklab, #070b14 70%, transparent);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: 1px solid #ffffff0f;
 }
 
-.inner {
+.header .inner {
   width: min(1120px, 92vw);
   margin-inline: auto;
   padding: 16px 0;
@@ -15,15 +15,32 @@
   grid-template-columns: 1fr auto;
   gap: 16px;
   align-items: center;
+
+  @media (max-width: 610px) {
+    width: 100%;
+    padding: 12px;
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
 }
 
-.brand {
+.header .brand {
   font-weight: 800;
   font-size: 20px;
   letter-spacing: 0.3px;
+
+  @media (max-width: 610px) {
+    font-size: 18px;
+  }
 }
 
-.caption {
+.header .caption {
   color: var(--muted);
   font-size: 14px;
+  justify-self: end;
+
+  @media (max-width: 610px) {
+    justify-self: start;
+    font-size: 12px;
+  }
 }
