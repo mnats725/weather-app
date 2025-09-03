@@ -1,0 +1,18 @@
+.wrapper {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 100dvh;
+}
+
+.container {
+  width: min(1120px, 92vw);
+  margin-inline: auto;
+  padding: 24px 0 40px;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+}
