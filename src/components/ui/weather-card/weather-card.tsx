@@ -1,5 +1,5 @@
-import type { WeatherBundle } from '../../types/weather.type';
-import type { GeoLocation } from '../../types/location.type';
+import type { WeatherBundle } from '../../../types/weather.type';
+import type { GeoLocation } from '../../../types/location.type';
 
 import styles from './weather-card.module.css';
 

@@ -2,7 +2,7 @@ import { ResponsiveContainer, ComposedChart, XAxis, YAxis, Tooltip, Area } from 
 
 import styles from './daily-range-chart.module.css';
 
-import type { DailyWeatherPoint } from '../../types/weather.type';
+import type { DailyWeatherPoint } from '../../../types/weather.type';
 
 type DailyRangeChartProps = {
   data: DailyWeatherPoint[];

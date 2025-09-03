@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
-import { SearchBar } from '@components/search-bar';
-import { LocationList } from '@components/location-list';
-import { WeatherCard } from '@components/weather-card';
-import { HourlyTempChart } from '@components/hourly-temp-chart';
-import { DailyRangeChart } from '@components/daily-range-chart';
-import { FavoritesBar } from '@components/favorites-bar';
-import { HistoryList } from '@components/history-list';
-import { ShareButton } from '@components/share-button';
-import { Tabs } from '@components/tabs';
+import { SearchBar } from '@components/ui/search-bar';
+import { LocationList } from '@components/ui/location-list';
+import { WeatherCard } from '@components/ui/weather-card';
+import { HourlyTempChart } from '@components/ui/hourly-temp-chart';
+import { DailyRangeChart } from '@components/ui/daily-range-chart';
+import { FavoritesBar } from '@components/ui/favorites-bar';
+import { HistoryList } from '@components/ui/history-list';
+import { ShareButton } from '@components/ui/share-button';
+import { Tabs } from '@components/ui/tabs';
 import { useWeather } from '@hooks/use-weather.hook';
 
 import styles from './home.module.css';

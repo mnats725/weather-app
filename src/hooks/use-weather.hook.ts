@@ -160,7 +160,6 @@ export const useWeather = () => {
     [state.favorites, persistFavorites]
   );
 
-  // ⚠️ переименовано, чтобы ESLint не считал это хуком
   const requestMyLocation = useCallback(() => {
     if (!navigator.geolocation) {
       setState((prev) => ({ ...prev, error: 'Геолокация недоступна в браузере' }));

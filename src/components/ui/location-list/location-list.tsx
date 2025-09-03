@@ -1,6 +1,6 @@
 import styles from './location-list.module.css';
 
-import type { GeoLocation } from '../../types/location.type';
+import type { GeoLocation } from '../../../types/location.type';
 
 type LocationListProps = {
   items: GeoLocation[];

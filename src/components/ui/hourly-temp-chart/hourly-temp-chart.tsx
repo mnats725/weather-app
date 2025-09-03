@@ -2,7 +2,7 @@ import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, Tooltip, CartesianG
 
 import styles from './hourly-temp-chart.module.css';
 
-import type { HourlyWeatherPoint } from '../../types/weather.type';
+import type { HourlyWeatherPoint } from '../../../types/weather.type';
 
 type HourlyTempChartProps = {
   data: HourlyWeatherPoint[];
