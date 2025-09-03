@@ -1,0 +1,32 @@
+.card {
+  background: var(--card);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 16px;
+  display: grid;
+  gap: 8px;
+}
+.header {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+}
+.title {
+  font-weight: 700;
+  font-size: 18px;
+}
+.meta {
+  color: var(--muted);
+  font-size: 14px;
+}
+.row {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 12px;
+  justify-content: start;
+}
+.kv {
+  padding: 6px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+}

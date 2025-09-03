@@ -2,13 +2,21 @@ import React, { useState } from 'react';
 
 import styles from './search-bar.module.css';
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  onSearch: (query: string) => void;
+  loading?: boolean;
+};
+
+export const SearchBar = ({ onSearch, loading }: SearchBarProps) => {
   const [query, setQuery] = useState('London');
 
   const placeholder = 'Город или координаты (например: Moscow / 55.75, 37.62)';
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    const value = query.trim();
+    if (value.length === 0) return;
+    onSearch(value);
   };
 
   const onChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
@@ -25,9 +33,12 @@ export const SearchBar = () => {
         value={query}
         onChange={onChange}
         aria-label="Поиск города"
+        disabled={loading}
       />
-      <button type="submit">Искать</button>
-      <p className={styles.hint}>Источники: Open-Meteo + Open-Meteo Geocoding</p>
+      <button type="submit" disabled={loading}>
+        Искать
+      </button>
+      <p className={styles.hint}>Источники: Open-Meteo • Open-Meteo Geocoding</p>
     </form>
   );
 };

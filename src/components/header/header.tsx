@@ -4,7 +4,7 @@ type HeaderProps = {
   title: string;
 };
 
-const renderCaption = () => <p className={styles.caption}>бесплатные источники • красивая визуализация</p>;
+const renderCaption = () => <p className={styles.caption}>Created by Mnats Avetisyan</p>;
 
 export const Header = ({ title }: HeaderProps) => {
   return (
