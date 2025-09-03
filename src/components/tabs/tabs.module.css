@@ -1,0 +1,27 @@
+.tabs {
+  display: grid;
+  gap: 12px;
+}
+
+.list {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 8px;
+
+  @media (max-width: 610px) {
+    grid-auto-flow: row;
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.btn {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn[aria-selected='true'] {
+  background: rgba(90, 169, 255, 0.2);
+  border-color: rgba(90, 169, 255, 0.35);
+}

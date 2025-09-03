@@ -1,0 +1,8 @@
+.button {
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, #6ab1ff, #4d8fff);
+  color: #061023;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+}
